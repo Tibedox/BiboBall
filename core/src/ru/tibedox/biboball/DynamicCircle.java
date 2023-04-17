@@ -27,9 +27,9 @@ public class DynamicCircle {
 
         FixtureDef fixtureDef = new FixtureDef(); // Создаём настройки fixture для тела
         fixtureDef.shape = circle; // форма
-        fixtureDef.density = 0.5f; // плотность
+        fixtureDef.density = 0.3f; // плотность
         fixtureDef.friction = 0.4f; // трение
-        fixtureDef.restitution = 0.8f; // упругость /Make it bounce a little bit
+        fixtureDef.restitution = 0.9f; // упругость /Make it bounce a little bit
 
         Fixture fixture = body.createFixture(fixtureDef); // создаём fixture
 

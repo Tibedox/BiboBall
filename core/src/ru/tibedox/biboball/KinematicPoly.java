@@ -12,7 +12,7 @@ public class KinematicPoly {
     Body body;
     float[] poly = {100,200, 117,142, 170,171, 142,118, 200,100, 143,83, 170,30, 117,58, 100,0, 82,58, 29,29, 57,83, 0,100, 59,118, 30,170, 83,142, 100,200};
 
-    KinematicPoly(World world, float x, float y){
+    KinematicPoly(World world, float x, float y, float angle){
         BodyDef bodyDef = new BodyDef(); // создаём объект настроек тела
         bodyDef.type = BodyDef.BodyType.KinematicBody; // определяем тип
         bodyDef.position.set(x, y); // устанавливаем стартовую позицию
@@ -21,7 +21,7 @@ public class KinematicPoly {
 
         for (int i = 0; i < poly.length; i++) {
             poly[i] -= 100;
-            poly[i] /= 100;
+            poly[i] /= 80;
         }
         ChainShape chain = new ChainShape(); // создаём объект формы
         chain.createChain(poly);
@@ -33,7 +33,7 @@ public class KinematicPoly {
 
         chain.dispose(); // форму необходимо удалять
 
-        body.setAngularVelocity(5f);
+        body.setAngularVelocity(angle);
     }
 
     float getX(){

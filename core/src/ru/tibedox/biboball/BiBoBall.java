@@ -49,11 +49,18 @@ public class BiBoBall extends ApplicationAdapter {
         wall[3] = new StaticBox(world, 0.1f, WORLD_HEIGHT/2, 0.1f, WORLD_HEIGHT/2);
         wall[4] = new StaticBox(world, WORLD_WIDTH/2, WORLD_HEIGHT/3, 0.1f, WORLD_HEIGHT/3);
 
-		biba = new KinematicCircle(world, WORLD_WIDTH/4, 0.7f, 0.5f);
-        boba = new KinematicCircle(world, WORLD_WIDTH/4*3, 0.7f, 0.5f);
-        ball = new DynamicCircle(world, WORLD_WIDTH/2, WORLD_HEIGHT-1, 0.5f);
+		biba = new KinematicCircle(world, WORLD_WIDTH/4, 0.7f, 0.7f);
+        boba = new KinematicCircle(world, WORLD_WIDTH/4*3, 0.7f, 0.7f);
+        ball = new DynamicCircle(world, WORLD_WIDTH/2, WORLD_HEIGHT-1, 0.7f);
         ball.body.applyForceToCenter(100.0f*rnd(), 0f, true);
-        star = new KinematicPoly(world, WORLD_WIDTH/4, WORLD_HEIGHT/2);
+        star = new KinematicPoly(world, WORLD_WIDTH/4, WORLD_HEIGHT/2, -4);
+        new KinematicPoly(world, WORLD_WIDTH/4*3, WORLD_HEIGHT/2, 4);
+
+        new KinematicPoly(world, WORLD_WIDTH/8, WORLD_HEIGHT/6, -2);
+        new KinematicPoly(world, WORLD_WIDTH/8*7, WORLD_HEIGHT/6, 2);
+
+        new KinematicPoly(world, WORLD_WIDTH/8*3, WORLD_HEIGHT/6, 3);
+        new KinematicPoly(world, WORLD_WIDTH/8*5, WORLD_HEIGHT/6, -3);
         //brick = new Brick(world, WORLD_WIDTH/2, WORLD_HEIGHT-10, 8, 4);
         //brick.body.applyForceToCenter(10000.0f*rnd(), 0f, true);
     }
