@@ -6,9 +6,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Wall {
+public class StaticBox {
     Body body;
-    Wall(World world, float x, float y, float width, float height){
+    StaticBox(World world, float x, float y, float width, float height){
         BodyDef bodyDef = new BodyDef(); // создаём объект настроек тела
         bodyDef.type = BodyDef.BodyType.StaticBody; // определяем тип
         bodyDef.position.set(new Vector2(x, y)); // устанавливаем стартовую позицию

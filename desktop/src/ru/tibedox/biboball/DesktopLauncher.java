@@ -12,7 +12,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("BiBoBall");
-		config.setWindowedMode(SCR_WIDTH, SCR_HEIGHT);
+		config.setWindowedMode(1280, 720);
 		new Lwjgl3Application(new BiBoBall(), config);
 	}
 }

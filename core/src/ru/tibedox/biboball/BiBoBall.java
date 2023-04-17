@@ -8,19 +8,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class BiBoBall extends ApplicationAdapter {
-    public static final int SCR_WIDTH = 1280, SCR_HEIGHT = 720;
-    public static final float WORLD_WIDTH = 160, WORLD_HEIGHT = 90;
+    public static final float WORLD_WIDTH = 16, WORLD_HEIGHT = 9;
 
 	SpriteBatch batch;
 	World world;
@@ -30,10 +23,11 @@ public class BiBoBall extends ApplicationAdapter {
 
 	Texture imgBall, imgCube;
 
-    Wall[] wall = new Wall[5];
-	Ball ball;
-    Brick brick;
-    BiBo biba, boba;
+    StaticBox[] wall = new StaticBox[5];
+	DynamicCircle ball;
+    DynamicBox brick;
+    KinematicCircle biba, boba;
+    KinematicPoly star;
 
     @Override
     public void create() {
@@ -49,16 +43,17 @@ public class BiBoBall extends ApplicationAdapter {
 
         debugRenderer = new Box2DDebugRenderer();
 
-		wall[0] = new Wall(world, WORLD_WIDTH/2, WORLD_HEIGHT-1, WORLD_WIDTH/2, 1);
-        wall[1] = new Wall(world, WORLD_WIDTH/2, 1, WORLD_WIDTH/2, 1);
-		wall[2] = new Wall(world, WORLD_WIDTH-1, WORLD_HEIGHT/2, 1, WORLD_HEIGHT/2);
-        wall[3] = new Wall(world, 1, WORLD_HEIGHT/2, 1, WORLD_HEIGHT/2);
-        wall[4] = new Wall(world, WORLD_WIDTH/2, WORLD_HEIGHT/3, 1, WORLD_HEIGHT/3);
+		wall[0] = new StaticBox(world, WORLD_WIDTH/2, WORLD_HEIGHT-0.1f, WORLD_WIDTH/2, 0.1f);
+        wall[1] = new StaticBox(world, WORLD_WIDTH/2, 0.1f, WORLD_WIDTH/2, 0.1f);
+		wall[2] = new StaticBox(world, WORLD_WIDTH-0.1f, WORLD_HEIGHT/2, 0.1f, WORLD_HEIGHT/2);
+        wall[3] = new StaticBox(world, 0.1f, WORLD_HEIGHT/2, 0.1f, WORLD_HEIGHT/2);
+        wall[4] = new StaticBox(world, WORLD_WIDTH/2, WORLD_HEIGHT/3, 0.1f, WORLD_HEIGHT/3);
 
-		biba = new BiBo(world, WORLD_WIDTH/4, 7, 5);
-        boba = new BiBo(world, WORLD_WIDTH/4*3, 7, 5);
-        ball = new Ball(world, WORLD_WIDTH/2, WORLD_HEIGHT-10, 5);
-        ball.body.applyForceToCenter(1000.0f*rnd(), 0f, true);
+		biba = new KinematicCircle(world, WORLD_WIDTH/4, 0.7f, 0.5f);
+        boba = new KinematicCircle(world, WORLD_WIDTH/4*3, 0.7f, 0.5f);
+        ball = new DynamicCircle(world, WORLD_WIDTH/2, WORLD_HEIGHT-1, 0.5f);
+        ball.body.applyForceToCenter(100.0f*rnd(), 0f, true);
+        star = new KinematicPoly(world, WORLD_WIDTH/4, WORLD_HEIGHT/2);
         //brick = new Brick(world, WORLD_WIDTH/2, WORLD_HEIGHT-10, 8, 4);
         //brick.body.applyForceToCenter(10000.0f*rnd(), 0f, true);
     }
@@ -116,11 +111,11 @@ public class BiBoBall extends ApplicationAdapter {
         batch.end();
     }
 
-    void touch(BiBo b){
+    void touch(KinematicCircle b){
         Vector2 pos = b.body.getPosition();
         if(!b.isJump) {
             if (touch.y < 12 | Math.abs(touch.x-pos.x)>b.getR()*6) {
-                b.body.setLinearVelocity((touch.x - pos.x) * 3, 0);
+                b.body.setLinearVelocity((touch.x - pos.x) * 4, 0);
             } else {
                 float g = (float) Math.sqrt((touch.x-pos.x)*(touch.x-pos.x) + (touch.y-pos.y)*(touch.y-pos.y));
                 float sina = (touch.x-pos.x)/g;
@@ -134,7 +129,7 @@ public class BiBoBall extends ApplicationAdapter {
         }
     }
 
-    void move(BiBo b){
+    void move(KinematicCircle b){
         if(b.isJump) {
             if(b.body.getLinearVelocity().y > 0) {
                 if (b.getY() > b.jumpHigh) {
@@ -147,6 +142,7 @@ public class BiBoBall extends ApplicationAdapter {
         } else {
             b.body.getLinearVelocity().y = 0;
         }
+
         // костыль
         if(b.isJump && b.body.getLinearVelocity().y == -40 && b.getY() < 8){
             b.body.getLinearVelocity().y = 0;
