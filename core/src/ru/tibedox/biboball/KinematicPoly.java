@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class KinematicPoly {
     Body body;
-    float[] poly = {100,200, 117,142, 170,171, 142,118, 200,100, 143,83, 170,30, 117,58, 100,0, 82,58, 29,29, 57,83, 0,100, 59,118, 30,170, 83,142, 100,200};
+    float[] poly = {100,200, 117,142, 170,171, 142,118, 200,100, 143,83, 170,30, 117,58, 100,0, 82,58, 29,29, 57,83, 0,100, 59,118, 30,170, 83,142};
 
     KinematicPoly(World world, float x, float y, float angle){
         BodyDef bodyDef = new BodyDef(); // создаём объект настроек тела
@@ -24,7 +24,7 @@ public class KinematicPoly {
             poly[i] /= 80;
         }
         ChainShape chain = new ChainShape(); // создаём объект формы
-        chain.createChain(poly);
+        chain.createLoop(poly);
 
         FixtureDef fixtureDef = new FixtureDef(); // Создаём настройки fixture для тела
         fixtureDef.shape = chain; // форма
