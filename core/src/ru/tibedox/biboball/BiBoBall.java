@@ -55,17 +55,18 @@ public class BiBoBall extends ApplicationAdapter {
         ball = new DynamicCircle(world, WORLD_WIDTH/2, WORLD_HEIGHT-1, 0.7f);
         ball.body.applyForceToCenter(100.0f*rnd(), 0f, true);
 
-        star = new KinematicPoly(world, WORLD_WIDTH/4, WORLD_HEIGHT/2, -4);
-        new KinematicPoly(world, WORLD_WIDTH/4*3, WORLD_HEIGHT/2, 4);
+        star = new KinematicPoly(world, WORLD_WIDTH/4, WORLD_HEIGHT/2, -4,"z");
+        new KinematicPoly(world, WORLD_WIDTH/4*3, WORLD_HEIGHT/2, 4,"z");
 
-        new KinematicPoly(world, WORLD_WIDTH/8, WORLD_HEIGHT/6, -5);
-        new KinematicPoly(world, WORLD_WIDTH/8*7, WORLD_HEIGHT/6, 5);
+        new KinematicPoly(world, WORLD_WIDTH/8, WORLD_HEIGHT/6, -5,"z");
+        new KinematicPoly(world, WORLD_WIDTH/8*7, WORLD_HEIGHT/6, 5,"z");
 
-        new KinematicPoly(world, WORLD_WIDTH/8*3, WORLD_HEIGHT/6, -5);
-        new KinematicPoly(world, WORLD_WIDTH/8*5, WORLD_HEIGHT/6, 5);
+        new KinematicPoly(world, WORLD_WIDTH/8*3, WORLD_HEIGHT/6, -5,"z");
+        new KinematicPoly(world, WORLD_WIDTH/8*5, WORLD_HEIGHT/6, 5,"z");
         //brick = new Brick(world, WORLD_WIDTH/2, WORLD_HEIGHT-10, 8, 4);
         //brick.body.applyForceToCenter(10000.0f*rnd(), 0f, true);
         starball = new DynamicPoly(world, WORLD_WIDTH/2-1.1f, WORLD_HEIGHT-1.1f);
+        world.setContactListener(new MyListener());
     }
 
     int rnd(){

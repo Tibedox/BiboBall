@@ -33,9 +33,10 @@ public class DynamicPoly {
 
         body = world.createBody(bodyDef); // создаём само тело
 
-        fromJson();
-        ChainShape shape = new ChainShape(); // создаём объект формы
-        shape.createLoop(chain);
+        fromJson("starpoly.json");
+        //ChainShape shape = new ChainShape(); // создаём объект формы
+        PolygonShape shape = new PolygonShape();
+        shape.set(chain);
         //PolygonShape shape = new PolygonShape(); // создаём объект формы
         //shape.set(chain);
 
@@ -46,14 +47,15 @@ public class DynamicPoly {
         fixtureDef.restitution = 0.8f; // упругость /Make it bounce a little bit
 
         Fixture fixture = body.createFixture(fixtureDef); // создаём fixture
+        fixture.setUserData("m");
 
         shape.dispose(); // форму необходимо удалять
         body.setAngularVelocity(1);
     }
 
-    void fromJson() {
+    void fromJson(String jsonName) {
         // read from json
-        FileHandle file = Gdx.files.internal("starpoly.json");
+        FileHandle file = Gdx.files.internal(jsonName);
         String jsonString = file.readString();
         Json json = new Json();
         Vertices verts;
@@ -65,7 +67,6 @@ public class DynamicPoly {
             chain[i] = new Vector2((verts.vertices[i].x-100)/100, (verts.vertices[i].y-100)/100);
             System.out.print(chain[i].x+" "+ chain[i].y+" - ");
         }
-
     }
 
     public float getImgX() {
