@@ -55,7 +55,7 @@ public class BiBoBall extends ApplicationAdapter {
         ball = new DynamicCircle(world, WORLD_WIDTH/2, WORLD_HEIGHT-1, 0.7f);
         ball.body.applyForceToCenter(100.0f*rnd(), 0f, true);
 
-        star = new KinematicPoly(world, WORLD_WIDTH/4, WORLD_HEIGHT/2, -4,"z");
+        star = new KinematicPoly(world, WORLD_WIDTH/4, WORLD_HEIGHT/2, 4,"z");
         new KinematicPoly(world, WORLD_WIDTH/4*3, WORLD_HEIGHT/2, 4,"z");
 
         new KinematicPoly(world, WORLD_WIDTH/8, WORLD_HEIGHT/6, -5,"z");

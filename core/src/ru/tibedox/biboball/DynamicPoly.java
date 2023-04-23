@@ -35,10 +35,9 @@ public class DynamicPoly {
 
         fromJson("starpoly.json");
         //ChainShape shape = new ChainShape(); // создаём объект формы
-        PolygonShape shape = new PolygonShape();
+        //shape.createLoop(chain);
+        PolygonShape shape = new PolygonShape(); // создаём объект формы
         shape.set(chain);
-        //PolygonShape shape = new PolygonShape(); // создаём объект формы
-        //shape.set(chain);
 
         FixtureDef fixtureDef = new FixtureDef(); // Создаём настройки fixture для тела
         fixtureDef.shape = shape; // форма
